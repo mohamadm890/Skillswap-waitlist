@@ -1,0 +1,7 @@
+/* Add this to a global CSS file or a specific file */
+.ProseMirror:focus {
+    outline: none;
+    box-shadow: none;
+    border: none;
+  }
+  
