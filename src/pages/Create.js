@@ -23,7 +23,7 @@ const Create = () => {
     <div>
  <div style={{width:"88%"}}>
   <h1 style={{fontSize:"28px", fontWeight:"800"}}>ابدأ بإنشاء محتوى عربي الآن</h1>
- <p style={{fontSize:"12px",fontWeight:"600px", marginTop:"16px",lineHeight:"24px", width:"95%"}}>استخدم ذكاء الاصطناعي الخاص بنا لإنشاء محتوى عربي بسرعة وسهولة. كل ما تحتاجه لكتابة مقالات، تقارير، أو نصوص إبداعية في مكان واحد.</p>
+ <p style={{fontSize:"16px",fontWeight:"600", marginTop:"16px",lineHeight:"28px", width:"95%"}}>استخدم ذكاء الاصطناعي الخاص بنا لإنشاء محتوى عربي بسرعة وسهولة. كل ما تحتاجه لكتابة مقالات، تقارير، أو نصوص إبداعية في مكان واحد.</p>
 </div>
 
 

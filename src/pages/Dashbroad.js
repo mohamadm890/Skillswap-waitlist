@@ -35,7 +35,8 @@ export default function Dashboard() {
       padding: "12px",
       display: 'flex',
       direction: 'rtl',
-      paddingBottom:"12px"
+      paddingBottom:"12px", 
+      overflowY: 'auto',
     }}>
 
   <SideBar   handlePageSelection={handlePageSelection} />

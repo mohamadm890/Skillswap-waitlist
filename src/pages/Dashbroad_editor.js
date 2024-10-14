@@ -3,11 +3,11 @@ import { Cairo } from "@next/font/google";
 import Rich_editor from "./Rich_editor.js";
 import { useEffect, useState } from 'react';
 import { EditorState } from 'draft-js'; // Import EditorState from draft-js
-import QuestionPromot from "./QuestionPromot.js";
+import QuestionPromot from "./Template/QuestionPromot.js";
 import SideBar from "./SideBar";
 import useStore from "./StoreZustand.js";
-import SocialMedia from "./SocialMedia.js";
-import Story from "./Story.js"
+import SocialMedia from "./Template/SocialMedia.js";
+import Story from "./Template/Story.js"
 const cairo = Cairo({
   subsets: ['arabic'],
   variable: "--font-cairo",

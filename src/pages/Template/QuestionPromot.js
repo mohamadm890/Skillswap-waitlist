@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import useStore from './StoreZustand';
+import useStore from '../StoreZustand';
 
 const QuestionPromot = () => {
   const [prompt, setPrompt] = useState('');
