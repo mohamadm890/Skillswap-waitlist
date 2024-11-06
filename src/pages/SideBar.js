@@ -1,103 +1,43 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 import { MdOutlineCreateNewFolder } from "react-icons/md";
 import { FiTool } from "react-icons/fi";
 import { VscSettings } from "react-icons/vsc";
-import { FaBars } from "react-icons/fa"; // Add hamburger icon
-import Link from 'next/link';
+import { FaBars } from "react-icons/fa";
 
 const SideBar = ({ handlePageSelection }) => {
-  const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false); // Sidebar visibility state
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
-    setIsOpen(!isOpen); // Toggle sidebar visibility
+    setIsOpen(!isOpen);
   };
 
   return (
     <>
-      {/* Sidebar */}
-      <div
-        className={`SideBar ${isOpen ? 'open' : ''}`}
-        style={{
-          width: isOpen ? "80px" : "0", // Conditional width based on state
-          backgroundColor: "white",
-          height: "100vh",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          boxShadow: "2px 0 5px rgba(0, 0, 0, 0.1)",
-          borderRadius: "32px",
-          overflow: "auto",
-          transition: "width 0.3s ease-in-out", // Smooth transition for the sidebar
-        }}
-      >
-        {/* Logo */}
-        {isOpen && (
-          <div style={{ padding: "16px" }}>
-            <img src='/arabicai.svg' alt='شعار' width={32} height={32} />
+      {/* Sidebar for larger screens */}
+      <div className={`SideBar ${isOpen ? 'open' : ''}`}>
+        <div className='nav'>
+          <div className='container'>
+            <div>
+              <div style={{ padding: "16px" }}>
+              <img src='/arabicai.svg' alt='شعار' width={'100%'} style={{ maxWidth: '32px', height: 'auto' }} />
+              </div>
+              <hr style={{ border: '0.6px solid #F0F2F5', height: '1px', width: '80%', margin: "auto" }} />
+            </div>
+            {/* Sidebar Links */}
+            <div className='icon-container' onClick={() => handlePageSelection('Create')}>
+              <MdOutlineCreateNewFolder size={24} />
+              {isOpen && <span style={{ fontSize: "8px", marginTop: "4px" }}>إنشاء</span>}
+            </div>
+            <div className='icon-container' onClick={() => handlePageSelection('Tools')}>
+              <FiTool size={24} />
+              {isOpen && <span style={{ fontSize: "8px", marginTop: "4px" }}>أدوات</span>}
+            </div>
+            <div className='icon-container' onClick={() => handlePageSelection('settings')}>
+              <VscSettings size={24} style={{ cursor: "pointer" }} />
+              {isOpen && <span style={{ fontSize: "8px", marginTop: "4px" }}>إعدادات</span>}
+            </div>
           </div>
-        )}
-
-        {/* Navigation Links */}
-        <nav style={{ display: "flex", flexDirection: "column", width: "100%", margin: "20px" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "column", gap: "16px", fontWeight: "bold" }}>
-            
-            {/* Create New */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <MdOutlineCreateNewFolder size={20}   onClick={() => handlePageSelection('Create')} />
-              {isOpen && (
-                <a 
-                
-                onClick={() => handlePageSelection('Create')}
-                style={{
-                  textDecoration: "none",
-                  textAlign: "center",
-                  fontSize: "8px",
-                  marginTop: "4px",
-                  cursor: "pointer"
-                }}>إنشاء</a>
-              )}
-            </div>
-
-            {/* Tools */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <FiTool size={20} style={{cursor:"pointer"}} onClick={() => handlePageSelection('Tools')}
- />
-              {isOpen && (
-                <a
-                onClick={() => handlePageSelection('Tools')}
-                
-                style={{
-                  textDecoration: "none",
-                  textAlign: "center",
-                  fontSize: "8px",
-                  marginTop: "4px",
-                  cursor: "pointer"
-                }}>أدوات</a>
-              )}
-            </div>
-
-            {/* Settings */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-              <Link href="/Settings" passHref>
-                <VscSettings size={20} color={router.pathname === '/Settings' ? '#101928' : '#98A2B3'} style={{ cursor: "pointer" }} />
-              </Link>
-              {isOpen && (
-                <a 
-                onClick={() => handlePageSelection('settings')}
-                style={{
-                  textDecoration: "none",
-                  textAlign: "center",
-                  fontSize: "8px",
-                  marginTop: "4px",
-                  cursor: "pointer"
-                }}>إعدادات</a>
-              )}
-            </div>
-
-          </div>
-        </nav>
+        </div>
       </div>
 
       {/* Hamburger Menu */}
@@ -105,11 +45,78 @@ const SideBar = ({ handlePageSelection }) => {
         <FaBars size={24} onClick={toggleSidebar} style={{ cursor: "pointer" }} />
       </div>
 
-      {/* Media Query Styling */}
+      {/* Styles */}
       <style jsx>{`
+      .nav {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        border-radius: 40px;
+        max-width: 400px;
+      }
+      .container img {
+        width: 60px; /* Fixed size */
+        height: auto; /* Maintain aspect ratio */
+      }
+        .icon-container {
+          display: flex;
+          cursor: pointer;
+          flex-direction: column;
+          align-items: center;
+          transition: color 0.3s ease, transform 0.3s ease; /* Add transition for smooth effect */
+        }
+
+        .icon-container:hover {
+          color: #0070f3; /* Change color on hover */
+          transform: scale(1.1); /* Slightly scale the icon on hover */
+        }
+
+        .container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 32px;
+          height: 100%;
+          width: 100%;
+          margin-top: 12px;
+        }
+
+        .SideBar {
+          height: 100%;
+          background-color: white;
+          border-radius: 20px;
+          display: flex;
+          flex-direction: column;
+        }
+
         @media (max-width: 768px) {
           .SideBar {
-            width: ${isOpen ? "80px" : "0"};
+            display: flex;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px; /* Ensure this is enough height for your icons */
+            background-color: white;
+            justify-content: space-around;
+            z-index: 1000;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* Prevent overflow */
+          }
+
+          .container {
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+            width: 100%;
+            gap: 32px; /* Adjust gap as necessary */
+            justify-content: center; /* Corrected typo */
+            align-items: center;
+          }
+
+          nav {
+            max-width: 300px;
           }
         }
       `}</style>
@@ -118,4 +125,3 @@ const SideBar = ({ handlePageSelection }) => {
 };
 
 export default SideBar;
-

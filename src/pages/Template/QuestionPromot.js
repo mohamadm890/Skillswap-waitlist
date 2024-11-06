@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import useStore from '../StoreZustand';
@@ -29,26 +28,30 @@ const QuestionPromot = () => {
 
   // Shared styles for inputs
   const inputStyle = {
-    padding: '12px',
     borderRadius: '40px',
-    marginTop: '10px',
     width: '100%',
     boxSizing: 'border-box',
     border: '1px solid #D0D5DD',
     outline: 'none',
     transition: 'border-color 0.3s',
     marginBottom: '8px',
+    padding: '4px',
+  };
+
+  const placeholderStyle = {
+    fontSize: '12px', // Adjust font size to be smaller
+    color: '#B0B0B0', // Optional: Change placeholder color to a lighter shade
   };
 
   const labelStyle = {
     textAlign: 'right',
     display: 'block',
-    color:"#0F172A",
+    color: "#0F172A",
     fontWeight: '600',
-    fontSize: '16px',
+    fontSize: '12px',
     lineHeight: '24px',
     marginBottom: '4px',
-    marginTop: '8px', // Ensure consistent spacing
+    marginTop: '12px', // Ensure consistent spacing
   };
 
   const formGroupStyle = {
@@ -56,11 +59,10 @@ const QuestionPromot = () => {
     flexDirection: 'column',
     alignItems: 'flex-start', // Align items to the left
     width: '100%',
-    marginBottom: '16px', // Spacing between form groups
   };
 
   const buttonStyle = {
-    marginTop: '20px', // Space above the button
+    marginTop: '24px', // Space above the button
     padding: '10px 20px',
     borderRadius: '20px',
     backgroundColor: '#0F973D',
@@ -74,45 +76,20 @@ const QuestionPromot = () => {
   const buttonHoverStyle = {
     ...buttonStyle,
     backgroundColor: '#0B7A2D', // Darker shade on hover
+
   };
 
   return (
-    <div style={{ marginBottom: "20px", padding: "8px", backgroundColor:"white" }}>
+    <div style={{ marginBottom: "20px",width:"300px" }}>
       <form onSubmit={handleSubmit}>
-        <div style={{ width: "100%", margin: "auto", textAlign: "right", direction: "rtl", marginTop: "16px", marginBottom: "24px", color:"#0F172A" }}>
-          <h2 style={{ fontWeight: "800", marginTop: "12px", fontSize: "24px", marginBottom: "12px" }}>ابتكر محتوى فريد مع الذكاء الاصطناعي</h2>
-          <p style={{ fontSize: "16px",color: "#64748B", marginBottom: "12px", marginTop: "12px", fontWeight: "600" }}>استخدم النموذج أدناه لإنشاء محتوى مخصص يتناسب مع احتياجاتك. يرجى ملء الحقول التالية</p>
-        </div>
-
         <div style={formGroupStyle}>
           <label style={labelStyle}>الموضوع الرئيسي</label>
           <textarea
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            style={{ ...inputStyle, height: '100px' }}
+            style={{ ...inputStyle, height: '50px' }}
             placeholder="اكتب موضوع المقالة (مثال: فوائد الذكاء الاصطناعي)"
           />
-        </div>
-
-        <div style={formGroupStyle}>
-          <label style={labelStyle}>أسلوب الكتابة</label>
-          <select
-            value={tone}
-            onChange={(e) => setTone(e.target.value)}
-            style={inputStyle}
-          >
-            <option value="">اختر أسلوب الكتابة</option>
-            <option value="رسمى">رسمى</option>
-            <option value="غير رسمى">غير رسمى</option>
-            <option value="وصفى">وصفى</option>
-            <option value="تحليلى">تحليلى</option>
-            <option value="تسويقى">تسويقى</option>
-            <option value="تعليمى">تعليمى</option>
-            <option value="إبداعى">إبداعى</option>
-            <option value="فكاهى">فكاهى</option>
-            <option value="اجتماعى">اجتماعى</option>
-            <option value="شخصى">شخصى</option>
-          </select>
         </div>
 
         <div style={formGroupStyle}>
@@ -131,7 +108,7 @@ const QuestionPromot = () => {
           <input
             type="text"
             style={inputStyle}
-            placeholder=" مثال:  ضمائر المخاطَب , الغائب , المتكلم "
+            placeholder="مثال:  ضمائر المخاطَب , الغائب , المتكلم "
             value={pronouns}
             onChange={(e) => setPronouns(e.target.value)}
           />
@@ -170,6 +147,14 @@ const QuestionPromot = () => {
 
         {errorMessage && <div style={{ color: 'red', marginTop: '10px' }}>{errorMessage}</div>}
       </form>
+
+      <style jsx>{`
+        textarea::placeholder,
+        input::placeholder {
+          font-size: ${placeholderStyle.fontSize};
+          color: ${placeholderStyle.color};
+        }
+      `}</style>
     </div>
   );
 };

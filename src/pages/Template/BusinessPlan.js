@@ -22,15 +22,20 @@ const BusinessPlan = () => {
 
     // Shared styles for inputs
     const inputStyle = {
-        padding: '12px',
+        padding: '4px',
         borderRadius: '40px',
-        marginTop: '10px',
+        marginTop: '4px',
         width: '100%',
         boxSizing: 'border-box',
         border: '1px solid #D0D5DD',
         outline: 'none',
         transition: 'border-color 0.3s',
-        marginBottom: '8px',
+        marginBottom: '4px',
+    };
+
+    const placeholderStyle = {
+        fontSize: '10px', // Change this value to make the placeholder text smaller or larger
+        color: '#A0AEC0', // Optional: change the color of the placeholder text
     };
 
     const labelStyle = {
@@ -38,10 +43,10 @@ const BusinessPlan = () => {
         display: 'block',
         color: "#0F172A",
         fontWeight: '600',
-        fontSize: '16px',
+        fontSize: '12px',
         lineHeight: '24px',
         marginBottom: '4px',
-        marginTop: '8px',
+        marginTop: '4px',
     };
 
     const formGroupStyle = {
@@ -49,7 +54,7 @@ const BusinessPlan = () => {
         flexDirection: 'column',
         alignItems: 'flex-start',
         width: '100%',
-        marginBottom: '16px',
+        marginBottom: '4px',
     };
 
     const buttonStyle = {
@@ -70,13 +75,8 @@ const BusinessPlan = () => {
     };
 
     return (
-        <div style={{ marginBottom: "20px", padding: "8px", backgroundColor: "white" }}>
+        <div style={{ marginBottom: "12px", width: "300px" }}>
             <form onSubmit={handleSubmit}>
-                <div style={{ width: "100%", margin: "auto", textAlign: "right", direction: "rtl", marginTop: "16px", marginBottom: "24px", color: "#0F172A" }}>
-                    <h2 style={{ fontWeight: "800", marginTop: "12px", fontSize: "24px", marginBottom: "12px" }}>كتابة خطة عمل بالذكاء الاصطناعي</h2>
-                    <p style={{ fontSize: "16px", color: "#64748B", marginBottom: "12px", marginTop: "12px", fontWeight: "600" }}>يرجى ملء الحقول التالية لكتابة خطة العمل الخاصة بك.</p>
-                </div>
-
                 <div style={formGroupStyle}>
                     <label style={labelStyle}>عنوان خطة العمل:</label>
                     <input
@@ -100,7 +100,7 @@ const BusinessPlan = () => {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         required
-                        style={{ ...inputStyle, height: '100px' }}
+                        style={inputStyle}
                     ></textarea>
                 </div>
 
@@ -113,7 +113,7 @@ const BusinessPlan = () => {
                         value={objectives}
                         onChange={(e) => setObjectives(e.target.value)}
                         required
-                        style={{ ...inputStyle, height: '100px' }}
+                        style={inputStyle}
                     ></textarea>
                 </div>
 
@@ -126,7 +126,7 @@ const BusinessPlan = () => {
                         value={marketAnalysis}
                         onChange={(e) => setMarketAnalysis(e.target.value)}
                         required
-                        style={{ ...inputStyle, height: '100px' }}
+                        style={inputStyle}
                     ></textarea>
                 </div>
 
@@ -139,7 +139,7 @@ const BusinessPlan = () => {
                         value={financialProjections}
                         onChange={(e) => setFinancialProjections(e.target.value)}
                         required
-                        style={{ ...inputStyle, height: '100px' }}
+                        style={inputStyle}
                     ></textarea>
                 </div>
 
@@ -157,6 +157,14 @@ const BusinessPlan = () => {
                     إنشاء خطة العمل
                 </button>
             </form>
+            <style>
+                {`
+                    input::placeholder, textarea::placeholder {
+                        font-size: ${placeholderStyle.fontSize};
+                        color: ${placeholderStyle.color};
+                    }
+                `}
+            </style>
         </div>
     );
 };

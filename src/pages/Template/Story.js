@@ -39,8 +39,7 @@ const StoryWritingForm = () => {
 
     return (
         <div style={styles.formContainer}>
-            <h2 style={styles.title}>إنشاء قصة جديدة</h2>
-            <p style={styles.description}>يرجى ملء الحقول التالية لإنشاء قصة مخصصة.</p>
+           
             {errorMessage && <p style={styles.error}>{errorMessage}</p>}
             
             <form onSubmit={handleSubmit} style={styles.form}>
@@ -70,7 +69,7 @@ const StoryWritingForm = () => {
                     <textarea
                         value={plot}
                         onChange={(e) => setPlot(e.target.value)}
-                        style={{ ...styles.input, height: '80px' }} // Reduced height
+                        style={{ ...styles.input }} // Reduced height
                         placeholder="اكتب ملخصًا للمؤامرة"
                     />
                 </div>
@@ -80,7 +79,7 @@ const StoryWritingForm = () => {
                     <textarea
                         value={setting}
                         onChange={(e) => setSetting(e.target.value)}
-                        style={{ ...styles.input, height: '80px' }} // Reduced height
+                        style={{ ...styles.input }} // Reduced height
                         placeholder="اكتب المكان الذي تحدث فيه القصة"
                     />
                 </div>
@@ -129,26 +128,25 @@ const StoryWritingForm = () => {
 
 const styles = {
     formContainer: {
+        width: "300px",
        
-        maxWidth: "600px",
-        marginBottom:"20px",
-        padding: "8px",
+
     },
     title: {
         fontWeight: "700",
         fontSize: "24px",
-        marginBottom: "12px",
-        textAlign: "center",
+        marginBottom: "4px",
+        textAlign: "right",
     },
     description: {
         fontSize: "16px",
         color: "#555",
-        marginBottom: "12px",
-        textAlign: "center",
+        marginBottom: "24px",
+        textAlign: "right",
     },
     error: {
         color: 'red',
-        textAlign: 'center',
+        textAlign: 'right',
         marginBottom: '12px',
     },
     form: {
@@ -162,32 +160,37 @@ const styles = {
         display: 'block',
         textAlign: 'right',
         marginBottom: '4px',
-        fontWeight: '500',
+        fontWeight: '600',
+        fontSize:'.9rem'
     },
     input: {
         padding: '10px',
-        borderRadius: '4px',
+        borderRadius: '32px',
         width: '100%',
         border: '1px solid #D0D5DD',
-        fontSize: '16px',
+        fontSize: '12px',
     },
     select: {
         padding: '10px',
-        borderRadius: '4px',
+        borderRadius: '32px',
         width: '100%',
         border: '1px solid #D0D5DD',
         fontSize: '16px',
     },
     submitButton: {
+        
+        width:'100%',
         padding: '10px',
-        borderRadius: '4px',
-        backgroundColor: '#0F973D', // Bootstrap primary color
+        borderRadius: '32px',
+        backgroundColor: '#0F973D', 
         color: 'white',
+        marginTop:"24px",
         border: 'none',
         cursor: 'pointer',
         fontSize: '16px',
         transition: 'background-color 0.3s',
     },
+   
 };
 
 export default StoryWritingForm;

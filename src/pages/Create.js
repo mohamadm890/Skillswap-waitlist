@@ -1,67 +1,176 @@
-import React,{useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import useStore from "./StoreZustand.js";
-import { FaRegFile } from "react-icons/fa";
-
+import { FaRegFile } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 
 const Create = () => {
+  const [fileName, setFileName] = useState(''); 
+  const [documents, setDocuments] = useState([]);
+  const [isPopoverOpen, setPopoverOpen] = useState(false);
+  const route = useRouter();
 
-    const [doc_id, setdoc_id] = useState();
-    const route = useRouter();
-    const {title, text, plainText, info} = useStore();
-    const route_Selection = async () => {
-        const newFileId = uuidv4();
-    
-        console.log(info)
-        console.log(newFileId);
-        setdoc_id(newFileId);
-        await route.push(`/doc/${newFileId}`);
-        console.log('After route push');
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      try {
+        const response = await fetch('/api/Get'); // Call the API route
+        if (!response.ok) {
+          throw new Error('Failed to fetch documents'); // Handle non-200 responses
+        }
+        const data = await response.json(); // Parse the response as JSON
+        setDocuments(data); // Update state with fetched documents
+      } catch (error) {
+        console.log(error.message); // Handle errors
+      } 
+    };
+
+    fetchDocuments(); // Invoke the function
+  }, []); // Empty dependency array means this runs once on mount
+
+  const handleFileCreate = async () => {
+    if (!fileName) return; // Ensure file name is not empty
+    const newFileId = uuidv4();
+    try {
+      const response = await fetch('/api/createDoc', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: newFileId , title: fileName }), // Send both title and ID
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create document');
       }
+
+      route.push(`/doc/${newFileId}`); // Redirect to the new document page
+    } catch (error) {
+      console.error('Error creating document:', error);
+    }
+  };
+
   return (
-    <div>
- <div style={{width:"88%"}}>
-  <h1 style={{fontSize:"28px", fontWeight:"800"}}>ابدأ بإنشاء محتوى عربي الآن</h1>
- <p style={{fontSize:"16px",fontWeight:"600", marginTop:"16px",lineHeight:"28px", width:"95%"}}>استخدم ذكاء الاصطناعي الخاص بنا لإنشاء محتوى عربي بسرعة وسهولة. كل ما تحتاجه لكتابة مقالات، تقارير، أو نصوص إبداعية في مكان واحد.</p>
-</div>
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', padding:"8px" }}>
+      <div style={{ width: '80%' }}>
+        <h1 style={{ fontSize: '28px', fontWeight: '800' }}>
+          ابدأ بإنشاء محتوى عربي الآن
+        </h1>
+        <p style={{ fontSize: '16px', fontWeight: '600', marginTop: '16px', lineHeight: '28px' }}>
+          استخدم ذكاء الاصطناعي الخاص بنا لإنشاء محتوى عربي بسرعة وسهولة. كل ما تحتاجه لكتابة مقالات، تقارير، أو نصوص إبداعية في مكان واحد.
+        </p>
+      </div>
 
+      <div
+        onClick={() => setPopoverOpen(!isPopoverOpen)} // Toggle popover visibility
+        style={{
+          height: '102px',
+          width: '94px',
+          backgroundColor: 'white',
+          borderRadius: '12px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: '32px',
+          cursor: 'pointer',
+          border: '1px solid #E4E7EC',
+        }}
+      >
+        <div style={{ padding: '12px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <FaRegFile size={28} style={{ color: '#0F973D' }} />
+          <p style={{ fontWeight: '600', fontSize: '12px', marginTop: '12px', color: '#667185' }}>
+            مستند جديد
+          </p>
+        </div>
+      </div>
 
+      {isPopoverOpen && ( // Conditionally render the popover
+        <div
+          style={{
+            position: 'fixed',
+            zIndex: 10,
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            padding: '20px',
+            backgroundColor: 'white',
+            borderRadius: '8px',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <h3 style={{ marginBottom: '10px', textAlign: 'center' }}>أدخل اسم المستند</h3>
+          <input
+            type="text"
+            value={fileName}
+            onChange={(e) => setFileName(e.target.value)}
+            placeholder="اسم المستند"
+            style={{
+              padding: '10px',
+              borderRadius: '5px',
+              border: '1px solid #E4E7EC',
+              marginBottom: '10px',
+              width: '100%',
+            }}
+          />
+          <button
+            onClick={handleFileCreate}
+            style={{
+              padding: '10px',
+              cursor: 'pointer',
+              backgroundColor: '#0F973D',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              width: '100%',
+            }}
+          >
+            إنشاء
+          </button>
+          <button
+            onClick={() => setPopoverOpen(false)} // Close the popover
+            style={{
+              marginTop: '10px',
+              cursor: 'pointer',
+              backgroundColor: 'transparent',
+              color: '#0F973D',
+              border: 'none',
+            }}
+          >
+            إلغاء
+          </button>
+        </div>
+      )}
+      <h2 style={{marginTop:"32px",fontWeight:"800"}}> المستندات التي أنشأتها </h2>
+      {/* Render the documents */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', marginTop: '32px', gap: '16px'}}>
 
-
-    <div
-    onClick={route_Selection}
-    style={{
-    height: "180px",
-    width: "160px",
-    backgroundColor: "white",
-    borderRadius: "40px",
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    marginTop: "32px",
-    marginBottom: "16px",
-    cursor:"pointer",
-    border: "1px solid #E4E7EC",
-
-  }}>
-
-
-    <div style={{ padding: "12px", display:"flex", flexDirection:"column", alignItems:"center", alignContent:"center" }}>
-     
-    <FaRegFile size={60} style={{ color: "#0F973D" }}/>
-    <p style={{
-      fontWeight: "600",
-      fontSize: "20px",
-      marginTop: "12px",
-      textAlign: "right",
-      color: "#667185"
-    }}>مستند جديد</p>
-  </div>
-  </div>
-  </div>
-
+        {documents.map((doc) => (
+          <div
+            key={doc.id}
+            style={{
+              height: '102px',
+              width: '94px',
+              backgroundColor: 'white',
+              borderRadius: '12px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              border: '1px solid #E4E7EC',
+              cursor: 'pointer',
+              flexDirection: 'column',
+              fontSize: '8px',
+            }}
+            onClick={() => route.push(`/doc/${doc.id}`)} // Redirect to the document page on click
+          >
+            <p style={{ fontWeight: '600', fontSize: '8px', color: '#101928', padding:"12px" }}>
+              {doc.title} {/* Display the document title */}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
+
 export default Create;

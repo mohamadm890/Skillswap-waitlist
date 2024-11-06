@@ -1,4 +1,4 @@
-// pages/files/[fileId].js
+"use client"
 import { Feather } from 'lucide-react';
 import { useRouter } from 'next/router';
 import Dashboard_editor from '../Dashbroad_editor';

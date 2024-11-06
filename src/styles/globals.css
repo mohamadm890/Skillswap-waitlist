@@ -80,3 +80,13 @@ select {
   direction: rtl !important;
   text-align: right !important;
 }
+
+.rdw-editor-toolbar{
+  display: flex;
+  padding: 12px !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 60vw !important;
+  margin: auto !important;
+}
+

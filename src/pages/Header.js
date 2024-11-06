@@ -1,7 +1,9 @@
+"use client";
 import { Cairo } from "@next/font/google";
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { FiMenu, FiX } from "react-icons/fi"; // Import icons for open and close
+import Link from 'next/link';
 
 const cairo = Cairo({
   subsets: ['arabic'],
@@ -10,7 +12,6 @@ const cairo = Cairo({
 });
 
 export default function Header() {
-
   const route = useRouter();
   const [menuOpen, setMenuOpen] = useState(false); // State to toggle menu visibility
 
@@ -18,23 +19,13 @@ export default function Header() {
     setMenuOpen(!menuOpen);
   };
 
-  const route_SignUp = () => {
-    route.push('/Login', undefined, { shallow: true });
-  };
-  
-  const route_Sign = () => {
-    route.push('/Dashbroad',undefined, { shallow: true } );
-  };
-
   return (
     <div style={{ fontFamily: `${cairo.style.fontFamily}`, display: "flex", justifyContent: "space-between", padding: "20px", alignItems: "center" }}>
       
-      {/* Hamburger Icon */}
       <div onClick={toggleMenu} style={{ cursor: "pointer" }} aria-label={menuOpen ? "Close menu" : "Open menu"}>
         {menuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
       </div>
 
-      {/* Navigation Links */}
       <div style={{
         display: menuOpen ? "flex" : "none",
         flexDirection: "column",
@@ -47,16 +38,21 @@ export default function Header() {
         padding: "20px"
       }}>
 
-<div style={{ display: "flex", gap: "20px", fontWeight: "800", color: "#344054", fontSize: "12px", flexDirection: "column" }}>
-          <a>الأسعار</a>
-          <a>المميزات</a>
-          <a>الرئيسية</a>
+        <div style={{ display: "flex", gap: "20px", fontWeight: "800", color: "#344054", fontSize: "12px", flexDirection: "column" }}>
+          <Link href="/Prices">الأسعار</Link> {/* Change to the correct path */}
+          <Link href="/Features">المميزات</Link> {/* Change to the correct path */}
+          <Link href="/">الرئيسية</Link> {/* Link to homepage */}
         </div>
-      <div style={{ fontWeight: "600", color: "#344054", display: "flex", flexDirection: "column", gap: "10px", marginTop: "28px" }}>
-      <button onClick={route_SignUp} style={{ backgroundColor: "#0F973D", color: "white", padding: "12px", borderRadius: "40px", fontWeight: "800", fontSize: "12px" }}>إنشاء حساب</button>
-      <button onClick={route_Sign} style={{ fontSize: "12px", fontWeight: "800" }}>تسجيل الدخول</button>
-</div>
-</div>
+
+        <div style={{ fontWeight: "600", color: "#344054", display: "flex", flexDirection: "column", gap: "10px", marginTop: "28px" }}>
+          <Link href="/Login">
+            <button style={{ backgroundColor: "#0F973D", color: "white", padding: "12px", borderRadius: "40px", fontWeight: "800", fontSize: "12px", border: 'none', cursor: 'pointer' }}>إنشاء حساب</button>
+          </Link>
+          <Link href="/Dashbroad">
+            <button style={{ fontSize: "12px", fontWeight: "800", border: 'none', cursor: 'pointer' }}>تسجيل الدخول</button>
+          </Link>
+        </div>
+      </div>
 
       {/* Logo */}
       <img src='/logo.svg' alt='logo' width={139} height={40} />

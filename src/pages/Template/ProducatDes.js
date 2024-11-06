@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import useStore from '../StoreZustand';
 
-const ProductDes = () => {
+const ProducatDes = () => {
   const [productName, setProductName] = useState('');
   const [shortDescription, setShortDescription] = useState('');
   const [features, setFeatures] = useState('');
@@ -12,7 +12,7 @@ const ProductDes = () => {
   const [price, setPrice] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const { doc_id } = useStore();
-  const router = useRouter(); // Initialize the router
+  const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,15 +30,19 @@ const ProductDes = () => {
 
   // Shared styles for inputs
   const inputStyle = {
-    padding: '12px',
     borderRadius: '40px',
-    marginTop: '10px',
     width: '100%',
     boxSizing: 'border-box',
     border: '1px solid #D0D5DD',
     outline: 'none',
     transition: 'border-color 0.3s',
     marginBottom: '8px',
+    padding: '4px',
+  };
+
+  const placeholderStyle = {
+    fontSize: '12px',
+    color: '#B0B0B0',
   };
 
   const labelStyle = {
@@ -46,7 +50,7 @@ const ProductDes = () => {
     display: 'block',
     color: "#0F172A",
     fontWeight: '600',
-    fontSize: '16px',
+    fontSize: '12px',
     lineHeight: '24px',
     marginBottom: '4px',
     marginTop: '8px',
@@ -57,11 +61,10 @@ const ProductDes = () => {
     flexDirection: 'column',
     alignItems: 'flex-start',
     width: '100%',
-    marginBottom: '16px',
   };
 
   const buttonStyle = {
-    marginTop: '20px',
+    marginTop: '24px',
     padding: '10px 20px',
     borderRadius: '20px',
     backgroundColor: '#0F973D',
@@ -78,13 +81,8 @@ const ProductDes = () => {
   };
 
   return (
-    <div style={{ marginBottom: "20px", padding: "8px", backgroundColor: "white" }}>
+    <div style={{ marginBottom: "20px", marginTop: "-20px", width: "300px" }}>
       <form onSubmit={handleSubmit}>
-        <div style={{ width: "100%", margin: "auto", textAlign: "right", direction: "rtl", marginTop: "16px", marginBottom: "24px", color: "#0F172A" }}>
-          <h2 style={{ fontWeight: "800", marginTop: "12px", fontSize: "24px", marginBottom: "12px" }}>إنشاء وصف منتج مميز</h2>
-          <p style={{ fontSize: "16px", color: "#64748B", marginBottom: "12px", marginTop: "12px", fontWeight: "600" }}>يرجى ملء الحقول التالية لإنشاء وصف مخصص للمنتج.</p>
-        </div>
-
         <div style={formGroupStyle}>
           <label style={labelStyle}>اسم المنتج</label>
           <input
@@ -101,7 +99,7 @@ const ProductDes = () => {
           <textarea
             value={shortDescription}
             onChange={(e) => setShortDescription(e.target.value)}
-            style={{ ...inputStyle, height: '100px' }}
+            style={{ ...inputStyle, height: '50px' }}
             placeholder="اكتب وصفًا قصيرًا للمنتج"
           />
         </div>
@@ -111,7 +109,7 @@ const ProductDes = () => {
           <textarea
             value={features}
             onChange={(e) => setFeatures(e.target.value)}
-            style={{ ...inputStyle, height: '100px' }}
+            style={{ ...inputStyle, height: '50px' }}
             placeholder="اكتب ميزات المنتج (مثال: شاشة AMOLED, كاميرا 64 ميجابكسل)"
           />
         </div>
@@ -121,7 +119,7 @@ const ProductDes = () => {
           <textarea
             value={benefits}
             onChange={(e) => setBenefits(e.target.value)}
-            style={{ ...inputStyle, height: '100px' }}
+            style={{ ...inputStyle, height: '50px' }}
             placeholder="اكتب فوائد المنتج"
           />
         </div>
@@ -175,13 +173,21 @@ const ProductDes = () => {
           onMouseOver={(e) => e.currentTarget.style.backgroundColor = buttonHoverStyle.backgroundColor}
           onMouseOut={(e) => e.currentTarget.style.backgroundColor = buttonStyle.backgroundColor}
         >
-          إنشاء وصف المنتج
+          إنشاء المحتوى
         </button>
 
         {errorMessage && <div style={{ color: 'red', marginTop: '10px' }}>{errorMessage}</div>}
       </form>
+
+      <style jsx>{`
+        textarea::placeholder,
+        input::placeholder {
+          font-size: ${placeholderStyle.fontSize};
+          color: ${placeholderStyle.color};
+        }
+      `}</style>
     </div>
   );
 };
 
-export default ProductDes;
+export default ProducatDes;

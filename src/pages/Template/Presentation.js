@@ -20,7 +20,7 @@ const Presentation = () => {
 
     // Shared styles for inputs
     const inputStyle = {
-        padding: '12px',
+        padding: '8px',
         borderRadius: '40px',
         marginTop: '10px',
         width: '100%',
@@ -36,10 +36,9 @@ const Presentation = () => {
         display: 'block',
         color: "#0F172A",
         fontWeight: '600',
-        fontSize: '16px',
+        fontSize: '12px',
         lineHeight: '24px',
         marginBottom: '4px',
-        marginTop: '8px',
     };
 
     const formGroupStyle = {
@@ -47,11 +46,11 @@ const Presentation = () => {
         flexDirection: 'column',
         alignItems: 'flex-start',
         width: '100%',
-        marginBottom: '16px',
+        marginBottom: '4px',
     };
 
     const buttonStyle = {
-        marginTop: '20px',
+        marginTop: '24px',
         padding: '10px 20px',
         borderRadius: '20px',
         backgroundColor: '#0F973D',
@@ -68,13 +67,8 @@ const Presentation = () => {
     };
 
     return (
-        <div style={{ marginBottom: "20px", padding: "8px", backgroundColor: "white" }}>
+        <div style={{ marginBottom: "16px", width: "300px" }}>
             <form onSubmit={handleSubmit}>
-                <div style={{ width: "100%", margin: "auto", textAlign: "right", direction: "rtl", marginTop: "16px", marginBottom: "24px", color: "#0F172A" }}>
-                    <h2 style={{ fontWeight: "800", marginTop: "12px", fontSize: "24px", marginBottom: "12px" }}>كتابة عرض تقديمي بالذكاء الاصطناعي</h2>
-                    <p style={{ fontSize: "16px", color: "#64748B", marginBottom: "12px", marginTop: "12px", fontWeight: "600" }}>يرجى ملء الحقول التالية لإنشاء عرض تقديمي.</p>
-                </div>
-
                 <div style={formGroupStyle}>
                     <label style={labelStyle}>عنوان العرض:</label>
                     <input
@@ -85,7 +79,7 @@ const Presentation = () => {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         required
-                        style={inputStyle}
+                        style={{ ...inputStyle, fontSize: '12px' }} // Set the font size for input
                     />
                 </div>
 
@@ -98,7 +92,7 @@ const Presentation = () => {
                         value={introduction}
                         onChange={(e) => setIntroduction(e.target.value)}
                         required
-                        style={{ ...inputStyle, height: '100px' }}
+                        style={{ ...inputStyle, fontSize: '12px' }} // Set the font size for textarea
                     ></textarea>
                 </div>
 
@@ -111,7 +105,7 @@ const Presentation = () => {
                         value={keyPoints}
                         onChange={(e) => setKeyPoints(e.target.value)}
                         required
-                        style={{ ...inputStyle, height: '100px' }}
+                        style={{ ...inputStyle, fontSize: '12px' }} // Set the font size for textarea
                     ></textarea>
                 </div>
 
@@ -124,13 +118,19 @@ const Presentation = () => {
                         value={conclusion}
                         onChange={(e) => setConclusion(e.target.value)}
                         required
-                        style={{ ...inputStyle, height: '100px' }}
+                        style={{ ...inputStyle, fontSize: '12px' }} // Set the font size for textarea
                     ></textarea>
                 </div>
 
                 <div style={formGroupStyle}>
                     <label style={labelStyle}>اختر النغمة:</label>
-                    <select id="tone" name="tone" value={tone} onChange={(e) => setTone(e.target.value)} style={inputStyle}>
+                    <select
+                        id="tone"
+                        name="tone"
+                        value={tone}
+                        onChange={(e) => setTone(e.target.value)}
+                        style={inputStyle}
+                    >
                         <option value="friendly">ودية</option>
                         <option value="professional">احترافية</option>
                         <option value="casual">غير رسمية</option>
@@ -138,7 +138,12 @@ const Presentation = () => {
                     </select>
                 </div>
 
-                <button type="submit" style={buttonStyle} onMouseOver={(e) => e.currentTarget.style.backgroundColor = buttonHoverStyle.backgroundColor} onMouseOut={(e) => e.currentTarget.style.backgroundColor = buttonStyle.backgroundColor}>
+                <button 
+                    type="submit" 
+                    style={buttonStyle} 
+                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = buttonHoverStyle.backgroundColor} 
+                    onMouseOut={(e) => e.currentTarget.style.backgroundColor = buttonStyle.backgroundColor}
+                >
                     إنشاء العرض التقديمي
                 </button>
             </form>

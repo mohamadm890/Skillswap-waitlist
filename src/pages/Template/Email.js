@@ -25,7 +25,7 @@ const Email = () => {
 
     // Shared styles for inputs
     const inputStyle = {
-        padding: '12px',
+        padding: '4px',
         borderRadius: '40px',
         marginTop: '10px',
         width: '100%',
@@ -33,7 +33,12 @@ const Email = () => {
         border: '1px solid #D0D5DD',
         outline: 'none',
         transition: 'border-color 0.3s',
-        marginBottom: '8px',
+        marginBottom: '4px',
+    };
+
+    const placeholderStyle = {
+        fontSize: '12px', // Smaller font size for placeholder
+        color: '#A0AEC0', // Placeholder color
     };
 
     const labelStyle = {
@@ -41,7 +46,7 @@ const Email = () => {
         display: 'block',
         color: "#0F172A",
         fontWeight: '600',
-        fontSize: '16px',
+        fontSize: '12px',
         lineHeight: '24px',
         marginBottom: '4px',
         marginTop: '8px',
@@ -52,7 +57,7 @@ const Email = () => {
         flexDirection: 'column',
         alignItems: 'flex-start',
         width: '100%',
-        marginBottom: '16px',
+        marginBottom: '12px',
     };
 
     const buttonStyle = {
@@ -73,13 +78,8 @@ const Email = () => {
     };
 
     return (
-        <div style={{ marginBottom: "20px", padding: "8px", backgroundColor: "white" }}>
+        <div style={{ marginBottom: "20px", width:"300px" }}>
             <form onSubmit={handleSubmit}>
-                <div style={{ width: "100%", margin: "auto", textAlign: "right", direction: "rtl", marginTop: "16px", marginBottom: "24px", color: "#0F172A" }}>
-                    <h2 style={{ fontWeight: "800", marginTop: "12px", fontSize: "24px", marginBottom: "12px" }}>إنشاء بريد إلكتروني مخصص</h2>
-                    <p style={{ fontSize: "16px", color: "#64748B", marginBottom: "12px", marginTop: "12px", fontWeight: "600" }}>يرجى ملء الحقول التالية لإنشاء بريد إلكتروني مخصص.</p>
-                </div>
-
                 <div style={formGroupStyle}>
                     <label style={labelStyle}>اختر نموذج البريد الإلكتروني:</label>
                     <select id="template" name="template" value={template} onChange={handleTemplateChange} style={inputStyle}>
@@ -115,6 +115,7 @@ const Email = () => {
                             value={customTemplate}
                             onChange={(e) => setCustomTemplate(e.target.value)}
                             style={{ ...inputStyle, height: '100px' }}
+                            className="small-placeholder" // Add a class for styling
                         ></textarea>
                     </div>
                 )}
@@ -130,6 +131,7 @@ const Email = () => {
                         onChange={(e) => setRecipient(e.target.value)}
                         required
                         style={inputStyle}
+                        className="small-placeholder" // Add a class for styling
                     />
                 </div>
 
@@ -144,6 +146,7 @@ const Email = () => {
                         onChange={(e) => setSubject(e.target.value)}
                         required
                         style={inputStyle}
+                        className="small-placeholder" // Add a class for styling
                     />
                 </div>
 
@@ -157,6 +160,7 @@ const Email = () => {
                         onChange={(e) => setKeyPoints(e.target.value)}
                         required
                         style={{ ...inputStyle, height: '100px' }}
+                        className="small-placeholder" // Add a class for styling
                     ></textarea>
                 </div>
 
@@ -170,12 +174,19 @@ const Email = () => {
                     </select>
                 </div>
 
-               
-
                 <button type="submit" style={buttonStyle} onMouseOver={(e) => e.currentTarget.style.backgroundColor = buttonHoverStyle.backgroundColor} onMouseOut={(e) => e.currentTarget.style.backgroundColor = buttonStyle.backgroundColor}>
                     إنشاء البريد الإلكتروني
                 </button>
             </form>
+
+            <style>
+                {`
+                .small-placeholder::placeholder {
+                    font-size: 12px; /* Adjust this size as needed */
+                    color: #A0AEC0; /* Color for the placeholder */
+                }
+                `}
+            </style>
         </div>
     );
 };

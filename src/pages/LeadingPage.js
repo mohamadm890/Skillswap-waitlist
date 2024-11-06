@@ -1,7 +1,9 @@
+"use client"
 import React from 'react';
 import { Cairo } from "@next/font/google";
 import Header from "./Header";
-
+import Login from "./Login"
+import SignUp from './SignUp';
 const cairo = Cairo({
   subsets: ['arabic'],
   variable: "--font-cairo",
@@ -16,23 +18,27 @@ export default function LeadingPage() {
         maxWidth: "600px",
         fontFamily: `${cairo.style.fontFamily}`,
         textAlign: "center",
-        margin: "100px auto",
+        margin: "80px auto",
         padding: "0 16px"
       }}
     >
       <h1 style={{
         fontWeight: "800",
-        fontSize: "60px",
+        fontSize: "3.75rem",
         marginBottom: "16px",
-        lineHeight: "1.2"
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:1410747395.
+        lineHeight: "1.2",
+        color: "#101928"
       }}>
     اجعل كل دقيقة تحسب
       </h1>
       <p style={{
         fontWeight: "600",
-        fontSize: "24px",
+        fontSize: "16px",
         marginTop: "12px",
-        marginBottom: "24px"
+        marginBottom: "24px",
+        lineHeight: "1.8",
+
       }}>
 لماذا تبقى عالقًا في الكتابة التقليدية؟ مع هذه التقنية الحديثة، يمكنك بسهولة إنتاج محتوى عربي جذاب لجميع احتياجاتك. ابدأ اليوم وكن أكثر إنتاجية!
 
@@ -50,7 +56,6 @@ export default function LeadingPage() {
       }}>
         جرّب مجانًا الآن
       </button>
-
       {/* Add media queries for responsiveness */}
       <style jsx>{`
         @media (max-width: 768px) {

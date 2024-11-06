@@ -1,4 +1,4 @@
-import Image from "next/image";
+"use client"
 import { Cairo } from "@next/font/google";
 import LeadingPage from "./LeadingPage";
 import Header from "./Header";

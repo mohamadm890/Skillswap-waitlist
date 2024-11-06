@@ -10,7 +10,7 @@ const useStore = create((set) => ({
   title: '',
   Info: {},
   editorState: EditorState.createEmpty(),  // Store the EditorState
-  plainText: '',  // Store plain text separately for easier access
+  plainText: ' ',  // Store plain text separately for easier access
   
   setDocId: (id) => {
     set({ doc_id: id });

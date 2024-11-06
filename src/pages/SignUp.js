@@ -7,13 +7,13 @@ const cairo = Cairo({
   weight: ['200', '300', '400', '500', '600', '700', '800', '900', '1000']
 });
 
-export default function Login() {
+export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
 
 const MakeCall = async () => {
-  const res = await fetch('/api/Login', {
+  const res = await fetch('/api/hello', {
     method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ const MakeCall = async () => {
   });
   if (res.ok)
     {
-      alert("lets game begin")
+      alert("You are new member")
     } else {
       alert('something went wrong!')
     }
@@ -40,7 +40,7 @@ const MakeCall = async () => {
     e.preventDefault();
     MakeCall()
 // Suggested code may be subject to a license. Learn more: ~LicenseLog:3175257435.
-    alert('You are Now Logi IN')
+    alert('You are Now Sign Up')
   }
 
   return (

@@ -1,13 +1,14 @@
+"use client"
+
 import { Cairo } from "@next/font/google";
 import { useRouter } from 'next/router';
-import { FaRegFile } from "react-icons/fa";
 import { useState } from "react"; 
 import SideBar from "./SideBar";
-import { v4 as uuidv4 } from 'uuid';
 import useStore from './StoreZustand'
 import Tools from './Tools'
 import Create from './Create'
-
+import Settings from './Settings'
+import Rich_editor from './Rich_editor'
 const cairo = Cairo({
     subsets: ['arabic'],
     variable: "--font-cairo",
@@ -41,14 +42,17 @@ export default function Dashboard() {
 
   <SideBar   handlePageSelection={handlePageSelection} />
 
-  <div style={{flexDirection:"column", marginRight:"20px", marginTop:"60px"}}> 
+  <div style={{flexDirection:"column", marginRight:"20px", marginTop:"60px",  marginBottom: '60px'}}> 
  
      
       {selectedPage === 'Create' && 
       <Create />}
       
       {selectedPage === 'Tools' &&  <Tools />}
-
+       
+       {selectedPage === 'Rich_editor' &&  <Rich_editor />}
+       {selectedPage === 'settings' &&  <Settings />}
+       
       </div>
       
      

@@ -34,15 +34,15 @@ const AdvertisementTextForm = () => {
     };
 
     const inputStyle = {
-        padding: '12px',
+        padding: '4px',
         borderRadius: '40px',
-        marginTop: '10px',
+        marginTop: '4px',
         width: '100%',
         boxSizing: 'border-box',
         border: '1px solid #D0D5DD',
         outline: 'none',
         transition: 'border-color 0.3s',
-        marginBottom: '8px',
+        marginBottom: '4px',
     };
 
     const labelStyle = {
@@ -50,10 +50,10 @@ const AdvertisementTextForm = () => {
         display: 'block',
         color: "#0F172A",
         fontWeight: '600',
-        fontSize: '16px',
+        fontSize: '12px',
         lineHeight: '24px',
         marginBottom: '4px',
-        marginTop: '8px',
+        marginTop: '4px',
     };
 
     const formGroupStyle = {
@@ -61,11 +61,11 @@ const AdvertisementTextForm = () => {
         flexDirection: 'column',
         alignItems: 'flex-start',
         width: '100%',
-        marginBottom: '16px',
+        marginBottom: '4px',
     };
 
     const buttonStyle = {
-        marginTop: '20px',
+        marginTop: '16px',
         padding: '10px 20px',
         borderRadius: '20px',
         backgroundColor: '#0F973D',
@@ -77,12 +77,8 @@ const AdvertisementTextForm = () => {
     };
 
     return (
-        <div style={{ marginBottom: "20px", padding: "8px", backgroundColor: "white" }}>
+        <div style={{ marginBottom: "20px" , width:"300px"}}>
             <form onSubmit={handleSubmit}>
-                <div style={{ width: "100%", margin: "auto", textAlign: "right", direction: "rtl", marginTop: "16px", marginBottom: "24px", color: "#0F172A" }}>
-                    <h2 style={{ fontWeight: "800", marginTop: "12px", fontSize: "24px", marginBottom: "12px" }}>إنشاء نص إعلاني مميز</h2>
-                    <p style={{ fontSize: "16px", color: "#64748B", marginBottom: "12px", marginTop: "12px", fontWeight: "600" }}>يرجى ملء الحقول التالية لإنشاء نص إعلاني مخصص.</p>
-                </div>
 
                 <div style={formGroupStyle}>
                     <label style={labelStyle}>اسم المنتج</label>
@@ -100,7 +96,7 @@ const AdvertisementTextForm = () => {
                     <textarea
                         value={shortDescription}
                         onChange={(e) => setShortDescription(e.target.value)}
-                        style={{ ...inputStyle, height: '100px' }}
+                        style={{ ...inputStyle }}
                         placeholder="اكتب وصفًا قصيرًا للإعلان"
                     />
                 </div>
@@ -121,7 +117,7 @@ const AdvertisementTextForm = () => {
                     <textarea
                         value={keyFeatures}
                         onChange={(e) => setKeyFeatures(e.target.value)}
-                        style={{ ...inputStyle, height: '100px' }}
+                        style={{ ...inputStyle }}
                         placeholder="اكتب الميزات الرئيسية للمنتج"
                     />
                 </div>
@@ -142,7 +138,7 @@ const AdvertisementTextForm = () => {
                     <textarea
                         value={benefits}
                         onChange={(e) => setBenefits(e.target.value)}
-                        style={{ ...inputStyle, height: '100px' }}
+                        style={{ ...inputStyle }}
                         placeholder="اكتب فوائد المنتج"
                     />
                 </div>
@@ -193,6 +189,14 @@ const AdvertisementTextForm = () => {
 
                 {errorMessage && <p style={{ color: 'red', textAlign: 'center' }}>{errorMessage}</p>}
             </form>
+
+            {/* Add CSS for placeholder styling */}
+            <style jsx>{`
+                input::placeholder, textarea::placeholder {
+                    font-size: 10px; /* Adjust the font size as needed */
+                    color: #B0B0B0; /* Change color if needed */
+                }
+            `}</style>
         </div>
     );
 };
