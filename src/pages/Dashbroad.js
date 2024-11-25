@@ -15,7 +15,7 @@ const cairo = Cairo({
     weight: ['200', '300', '400', '500', '600', '700', '800', '900', '1000']
 });
 
-export default function Dashboard() {
+export default function Dashbroad() {
   const [doc_id, setdoc_id] = useState();
   const {title, text, plainText, info} = useStore();
   const [selectedPage, setSelectedPage] = useState('Create');

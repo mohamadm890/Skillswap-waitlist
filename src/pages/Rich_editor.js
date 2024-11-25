@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
-import { EditorState } from 'draft-js';
+import { useState, useEffect } from 'react';
+import { EditorState, convertToRaw,ContentState  } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import useStore from './StoreZustand.js';
 
@@ -10,12 +10,23 @@ const Editor = dynamic(
   { ssr: false }
 );
 
-const Rich_editor = () => {
+const Rich_editor = ({generatedText}) => {
   // State for the title and editor state
   const [editor, seteditor] = useState(EditorState.createEmpty());
 
   const { setTitle, setEditorState, editorState, title, doc_id } = useStore();
+  
+  useEffect(() => {
+    
+    const contentState = ContentState.createFromText(generatedText); // Create ContentState from text
+    const editorState = EditorState.createWithContent(contentState);
+  setEditorState(editorState);
 
+  }, [generatedText]);
+
+  
+
+  
   // Handle title input change
   const handleTitleChange = (event) => {
     setTitle(event.target.value);

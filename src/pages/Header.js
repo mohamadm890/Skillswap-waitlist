@@ -1,6 +1,5 @@
-"use client";
 import { Cairo } from "@next/font/google";
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FiMenu, FiX } from "react-icons/fi"; // Import icons for open and close
 import Link from 'next/link';
@@ -39,18 +38,16 @@ export default function Header() {
       }}>
 
         <div style={{ display: "flex", gap: "20px", fontWeight: "800", color: "#344054", fontSize: "12px", flexDirection: "column" }}>
-          <Link href="/Prices">الأسعار</Link> {/* Change to the correct path */}
+          <Link href="/Price">الأسعار</Link> {/* Change to the correct path */}
           <Link href="/Features">المميزات</Link> {/* Change to the correct path */}
           <Link href="/">الرئيسية</Link> {/* Link to homepage */}
         </div>
 
         <div style={{ fontWeight: "600", color: "#344054", display: "flex", flexDirection: "column", gap: "10px", marginTop: "28px" }}>
-          <Link href="/Login">
-            <button style={{ backgroundColor: "#0F973D", color: "white", padding: "12px", borderRadius: "40px", fontWeight: "800", fontSize: "12px", border: 'none', cursor: 'pointer' }}>إنشاء حساب</button>
-          </Link>
-          <Link href="/Dashbroad">
-            <button style={{ fontSize: "12px", fontWeight: "800", border: 'none', cursor: 'pointer' }}>تسجيل الدخول</button>
-          </Link>
+      
+            <button style={{ backgroundColor: "#0F973D", color: "white", padding: "12px", borderRadius: "40px", fontWeight: "800", fontSize: "12px", border: 'none', cursor: 'pointer' }} onClick={() => route.push('/Login')} >إنشاء حساب</button>
+        
+            <button style={{ fontSize: "12px", fontWeight: "800", border: 'none', cursor: 'pointer' }} onClick={() => route.push('/Dashbroad')}>تسجيل الدخول</button>
         </div>
       </div>
 

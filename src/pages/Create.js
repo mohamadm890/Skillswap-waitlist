@@ -1,7 +1,11 @@
+"use client"
+import { RiMoreFill } from "react-icons/ri";
+
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { FaRegFile } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
+import { HiOutlineDocumentAdd } from "react-icons/hi";
 import { v4 as uuidv4 } from 'uuid';
+import { FaRegFileLines } from "react-icons/fa6";
 
 const Create = () => {
   const [fileName, setFileName] = useState(''); 
@@ -50,20 +54,13 @@ const Create = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', padding:"8px" }}>
-      <div style={{ width: '80%' }}>
-        <h1 style={{ fontSize: '28px', fontWeight: '800' }}>
-          ابدأ بإنشاء محتوى عربي الآن
-        </h1>
-        <p style={{ fontSize: '16px', fontWeight: '600', marginTop: '16px', lineHeight: '28px' }}>
-          استخدم ذكاء الاصطناعي الخاص بنا لإنشاء محتوى عربي بسرعة وسهولة. كل ما تحتاجه لكتابة مقالات، تقارير، أو نصوص إبداعية في مكان واحد.
-        </p>
-      </div>
+  
 
       <div
         onClick={() => setPopoverOpen(!isPopoverOpen)} // Toggle popover visibility
         style={{
-          height: '102px',
-          width: '94px',
+          height: '40px',
+          width:'129px',
           backgroundColor: 'white',
           borderRadius: '12px',
           display: 'flex',
@@ -72,11 +69,12 @@ const Create = () => {
           marginTop: '32px',
           cursor: 'pointer',
           border: '1px solid #E4E7EC',
+          backgroundColor: '#0F973D'
         }}
       >
-        <div style={{ padding: '12px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <FaRegFile size={28} style={{ color: '#0F973D' }} />
-          <p style={{ fontWeight: '600', fontSize: '12px', marginTop: '12px', color: '#667185' }}>
+        <div style={{ padding: '12px', display: 'flex',  alignItems: 'center', justifyContent:"space-between", gap:"8px" }}>
+          <HiOutlineDocumentAdd size={20} style={{ color: '#fff' }} />
+          <p style={{ fontWeight: '600', fontSize: '12px',  color: '#fff', marginLeft:'12px'}}>
             مستند جديد
           </p>
         </div>
@@ -149,8 +147,8 @@ const Create = () => {
           <div
             key={doc.id}
             style={{
-              height: '102px',
-              width: '94px',
+              height: '80px',
+              Width: '1000px',
               backgroundColor: 'white',
               borderRadius: '12px',
               display: 'flex',
@@ -158,14 +156,18 @@ const Create = () => {
               alignItems: 'center',
               border: '1px solid #E4E7EC',
               cursor: 'pointer',
-              flexDirection: 'column',
+              flexDirection: 'row',
               fontSize: '8px',
             }}
             onClick={() => route.push(`/doc/${doc.id}`)} // Redirect to the document page on click
           >
-            <p style={{ fontWeight: '600', fontSize: '8px', color: '#101928', padding:"12px" }}>
+            <div style={{  display:'flex', flexDirection:'row', alignItems:"center", width: '100%', padding: '12px'}}>
+            <FaRegFileLines size={28} style={{color:"#0F973D"}}/>
+            <p style={{ fontWeight: '600', fontSize: '16px', color: '#101928', padding:"12px" }}>
               {doc.title} {/* Display the document title */}
             </p>
+            <RiMoreFill size={28} />
+            </div>
           </div>
         ))}
       </div>

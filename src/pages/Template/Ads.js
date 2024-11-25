@@ -1,204 +1,154 @@
-import React, { useState } from 'react';
+"use client";
 
-const AdvertisementTextForm = () => {
-    const [product, setProduct] = useState('');
-    const [shortDescription, setShortDescription] = useState('');
-    const [targetAudience, setTargetAudience] = useState('');
-    const [keyFeatures, setKeyFeatures] = useState('');
-    const [callToAction, setCallToAction] = useState('');
-    const [benefits, setBenefits] = useState('');
-    const [tone, setTone] = useState('friendly');
-    const [customTone, setCustomTone] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        setErrorMessage('');
+const Ads = ({ generatedText, setGeneratedText }) => {
+  const [product, setProduct] = useState("");
+  const [targetAudience, setTargetAudience] = useState("");
+  const [keyFeatures, setKeyFeatures] = useState("");
+  const [tone, setTone] = useState("friendly");
+  const [customTone, setCustomTone] = useState("");
+  const [dialect, setDialect] = useState("modern_standard");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-        // Check for required fields
-        if (!product.trim() || !shortDescription.trim() || !targetAudience.trim()) {
-            setErrorMessage('يرجى إدخال جميع الحقول المطلوبة.');
-            return;
-        }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setErrorMessage("");
+    setLoading(true);
 
-        // Handle form submission logic here
-        console.log({
-            product,
-            shortDescription,
-            targetAudience,
-            keyFeatures,
-            callToAction,
-            benefits,
-            tone: customTone.trim() ? customTone : tone, // Use custom tone if provided
-        });
+    if (!product.trim() || !targetAudience.trim()) {
+      setErrorMessage("يرجى إدخال جميع الحقول المطلوبة.");
+      setLoading(false);
+      return;
+    }
+
+    const obj = {
+      type: "ad",
+      product,
+      targetAudience,
+      keyFeatures,
+      tone: customTone || tone,
     };
 
-    const inputStyle = {
-        padding: '4px',
-        borderRadius: '40px',
-        marginTop: '4px',
-        width: '100%',
-        boxSizing: 'border-box',
-        border: '1px solid #D0D5DD',
-        outline: 'none',
-        transition: 'border-color 0.3s',
-        marginBottom: '4px',
-    };
+    try {
+      const response = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      });
 
-    const labelStyle = {
-        textAlign: 'right',
-        display: 'block',
-        color: "#0F172A",
-        fontWeight: '600',
-        fontSize: '12px',
-        lineHeight: '24px',
-        marginBottom: '4px',
-        marginTop: '4px',
-    };
+      if (!response.ok) {
+        throw new Error("فشل في إنشاء النص الإعلاني.");
+      }
 
-    const formGroupStyle = {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        width: '100%',
-        marginBottom: '4px',
-    };
+      const data = await response.json();
+      setGeneratedText(data.output);
+    } catch (error) {
+      setErrorMessage("حدث خطأ أثناء إنشاء النص الإعلاني.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const buttonStyle = {
-        marginTop: '16px',
-        padding: '10px 20px',
-        borderRadius: '20px',
-        backgroundColor: '#0F973D',
-        width: '100%',
-        color: 'white',
-        border: 'none',
-        cursor: 'pointer',
-        transition: 'background-color 0.3s',
-    };
-
-    return (
-        <div style={{ marginBottom: "20px" , width:"300px"}}>
-            <form onSubmit={handleSubmit}>
-
-                <div style={formGroupStyle}>
-                    <label style={labelStyle}>اسم المنتج</label>
-                    <input
-                        type="text"
-                        value={product}
-                        onChange={(e) => setProduct(e.target.value)}
-                        style={inputStyle}
-                        placeholder="اكتب اسم المنتج"
-                    />
-                </div>
-
-                <div style={formGroupStyle}>
-                    <label style={labelStyle}>وصف قصير</label>
-                    <textarea
-                        value={shortDescription}
-                        onChange={(e) => setShortDescription(e.target.value)}
-                        style={{ ...inputStyle }}
-                        placeholder="اكتب وصفًا قصيرًا للإعلان"
-                    />
-                </div>
-
-                <div style={formGroupStyle}>
-                    <label style={labelStyle}>الجمهور المستهدف</label>
-                    <input
-                        type="text"
-                        value={targetAudience}
-                        onChange={(e) => setTargetAudience(e.target.value)}
-                        style={inputStyle}
-                        placeholder="مثال: طلاب، محترفون"
-                    />
-                </div>
-
-                <div style={formGroupStyle}>
-                    <label style={labelStyle}>الميزات الرئيسية</label>
-                    <textarea
-                        value={keyFeatures}
-                        onChange={(e) => setKeyFeatures(e.target.value)}
-                        style={{ ...inputStyle }}
-                        placeholder="اكتب الميزات الرئيسية للمنتج"
-                    />
-                </div>
-
-                <div style={formGroupStyle}>
-                    <label style={labelStyle}>دعوة للعمل</label>
-                    <input
-                        type="text"
-                        value={callToAction}
-                        onChange={(e) => setCallToAction(e.target.value)}
-                        style={inputStyle}
-                        placeholder="مثال: احصل عليه الآن!"
-                    />
-                </div>
-
-                <div style={formGroupStyle}>
-                    <label style={labelStyle}>فوائد المنتج</label>
-                    <textarea
-                        value={benefits}
-                        onChange={(e) => setBenefits(e.target.value)}
-                        style={{ ...inputStyle }}
-                        placeholder="اكتب فوائد المنتج"
-                    />
-                </div>
-
-                <div style={formGroupStyle}>
-                    <label style={labelStyle}>أسلوب الكتابة</label>
-                    <select
-                        value={tone}
-                        onChange={(e) => {
-                            setTone(e.target.value);
-                            if (e.target.value !== 'custom') {
-                                setCustomTone(''); // Clear custom tone if a predefined tone is selected
-                            }
-                        }}
-                        style={inputStyle}
-                    >
-                        <option value="friendly">ودية</option>
-                        <option value="professional">احترافية</option>
-                        <option value="casual">غير رسمية</option>
-                        <option value="formal">رسمية</option>
-                        <option value="excited">متحمسة</option>
-                        <option value="persuasive">مقنعة</option>
-                        <option value="informative">معلوماتية</option>
-                        <option value="enthusiastic">حماسية</option>
-                        <option value="custom">أدخل أسلوبك الخاص</option> {/* Option to enter custom tone */}
-                    </select>
-                </div>
-
-                {tone === 'custom' && ( // Show custom tone input only if 'custom' is selected
-                    <div style={formGroupStyle}>
-                        <label style={labelStyle}>أدخل أسلوبك الخاص</label>
-                        <input
-                            type="text"
-                            value={customTone}
-                            onChange={(e) => setCustomTone(e.target.value)}
-                            style={inputStyle}
-                            placeholder="اكتب أسلوبك الخاص"
-                        />
-                    </div>
-                )}
-
-                <button
-                    type="submit"
-                    style={buttonStyle}
-                >
-                    إنشاء نص إعلاني
-                </button>
-
-                {errorMessage && <p style={{ color: 'red', textAlign: 'center' }}>{errorMessage}</p>}
-            </form>
-
-            {/* Add CSS for placeholder styling */}
-            <style jsx>{`
-                input::placeholder, textarea::placeholder {
-                    font-size: 10px; /* Adjust the font size as needed */
-                    color: #B0B0B0; /* Change color if needed */
-                }
-            `}</style>
+  return (
+    <div className="max-w-md mx-auto p-6 bg-transparent rounded-lg space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Product Name */}
+        <div style={{marginTop: "12px"}}>
+          <label className="block text-sm font-medium text-gray-700">
+            اسم المنتج
+          </label>
+          <Input
+            type="text"
+            style={{backgroundColor: 'white'}}
+            value={product}
+            onChange={(e) => setProduct(e.target.value)}
+            placeholder="اكتب اسم المنتج"
+            className="mt-1"
+          />
         </div>
-    );
+
+        {/* Target Audience */}
+        <div style={{marginTop: "12px" }} >
+          <label className="block text-sm font-medium text-gray-700">
+            الجمهور المستهدف
+          </label>
+          <Input
+            type="text"
+            value={targetAudience}
+            style={{backgroundColor: 'white'}}
+
+            onChange={(e) => setTargetAudience(e.target.value)}
+            placeholder="مثال: طلاب، محترفون"
+            className="mt-1"
+          />
+        </div>
+
+        {/* Key Features */}
+        <div style={{marginTop: "12px" }}>
+          <label className="block text-sm font-medium text-gray-700">
+            الميزات أو فوائد المنتج
+          </label>
+          <Textarea
+                      style={{backgroundColor: 'white'}}
+
+            value={keyFeatures}
+            onChange={(e) => setKeyFeatures(e.target.value)}
+            placeholder="اكتب الميزات الرئيسية للمنتج"
+            className="mt-1"
+          />
+        </div>
+
+        {/* Dialect Selection */}
+        <div  style={{marginTop: "12px"}}>
+          <label className="block text-sm font-medium text-gray-700  ">
+            اللهجة
+          </label>
+          <Select
+            value={dialect}
+            onChange={(e) => setDialect(e.target.value)}
+            className="mt-1 bg-white"
+          >
+            <SelectTrigger className="w-[180px] bg-white"    >
+              <SelectValue placeholder="اللهجة"
+ />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="modern_standard" className="bg-white">العربية الفصحى</SelectItem>
+              <SelectItem value="egyptian">اللهجة المصرية</SelectItem>
+              <SelectItem value="gulf">اللهجة الخليجية</SelectItem>
+              <SelectItem value="moroccan">اللهجة المغربية</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+       
+
+        {/* Submit Button */}
+        <Button type="submit" className="w-full mt-20 " style={{marginTop: "16px", backgroundColor: "green"}} >
+          {loading ? "جاري إنشاء النص..." : "إنشاء نص إعلاني"}
+        </Button>
+
+        {/* Error Message */}
+        {errorMessage && (
+          <p className="text-red-500 text-center mt-2">{errorMessage}</p>
+        )}
+      </form>
+    </div>
+  );
 };
 
-export default AdvertisementTextForm;
+export default Ads;

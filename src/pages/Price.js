@@ -37,9 +37,9 @@ const Price = () => {
   ];
 
   return (
-    <div className="offers-container p-8" style={{fontFamily:`${cairo.style.fontFamily}`, backgroundColor:"#F3FBF5"}} >
+    <div className="offers-container p-8" style={{fontFamily:`${cairo.style.fontFamily}`, backgroundColor:"#F3FBF5", padding:"24px"}} >
         <div style={{textAlign:"center", marginBottom:"40px"}}>
-                 <h2 className="offers-heading" style={{fontWeight:"800", fontSize:"24px", marginTop:"24px"}}>تجربة مجانية لمدة 14 يومًا</h2>
+                 <h2 className="offers-heading" style={{fontWeight:"800", fontSize:"24px"}}>تجربة مجانية لمدة 14 يومًا</h2>
       <p style={{marginTop:"4px", fontSize:"12px", color:"#8D8D8D"}}>ابدأ خطتك الآن بدون الحاجة إلى بطاقة ائتمان</p> 
         </div>
 

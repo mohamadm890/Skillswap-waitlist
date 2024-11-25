@@ -14,6 +14,7 @@ const Email = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        
         console.log({
             template: template === 'custom' ? customTemplate : template,
             recipient,

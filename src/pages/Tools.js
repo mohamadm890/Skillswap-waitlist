@@ -42,35 +42,13 @@ const Tools = () => {
     return (
         <div style={{ padding: '20px', textAlign: 'right', fontFamily: `${cairo.style.fontFamily}` }}>
             <div style={{ marginRight: "8px", display: "flex", flexDirection: "row", alignItems: "center", gap: 20 }}>
-                <h2 style={headerStyle(0)} onClick={() => handleHeaderClick(0)}> انشاء محتوى</h2>
                 <h2 style={headerStyle(1)} onClick={() => handleHeaderClick(1)}>صوتي الخاص</h2>
             </div>
 
-            {activeHeader === 1 && (
                 <div>
                     <VoiceProfile />
                 </div>
-            )}
-            {activeHeader === 0 && (
-                <>
-                    <p style={{ fontSize: '12px', fontWeight: '600', marginTop: '10px', color: "#94A3B8" }}>
-                        اختر الأداة التي ترغب في استخدامها أدناه:
-                    </p>
-                    <div className="tools-container">
-                        {toolsData.map(tool => (
-                            <div>
-                            <CardTools
-                                key={tool.id}
-                                icon={tool.icon}
-                                title={tool.title}
-                                link={tool.link}
-                            />
-                            </div>
-                        ))}  
 
-                    </div>
-                </>
-            )}
 
             <style jsx>{`
                 .tools-container {

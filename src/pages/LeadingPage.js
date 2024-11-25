@@ -1,9 +1,10 @@
-"use client"
+
 import React from 'react';
 import { Cairo } from "@next/font/google";
 import Header from "./Header";
 import Login from "./Login"
 import SignUp from './SignUp';
+
 const cairo = Cairo({
   subsets: ['arabic'],
   variable: "--font-cairo",
@@ -11,6 +12,10 @@ const cairo = Cairo({
 });
 
 export default function LeadingPage() {
+  
+
+
+
   return (
     <div
       style={{
@@ -56,6 +61,8 @@ export default function LeadingPage() {
       }}>
         جرّب مجانًا الآن
       </button>
+
+
       {/* Add media queries for responsiveness */}
       <style jsx>{`
         @media (max-width: 768px) {
