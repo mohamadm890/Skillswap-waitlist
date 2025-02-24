@@ -2,7 +2,7 @@
 import react , { useState } from 'react';
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
-import { supabase } from './supabaseClient';
+import { supabase } from '../../lib/supabaseClient';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
